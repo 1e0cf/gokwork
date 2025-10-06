@@ -2,4 +2,4 @@ package: api
 generate:
   client: true
   models: true
-output: api_client.gen.go
+output: openapi/api_client.gen.go

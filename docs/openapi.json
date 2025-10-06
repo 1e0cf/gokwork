@@ -21845,29 +21845,49 @@
         "content": {
           "application/json": {
             "schema": {
-              "properties": {
-                "success": {
-                  "description": "Флаг успешности",
-                  "type": "boolean"
-                },
-                "response": {
-                  "description": "Данные",
+              "oneOf": [
+                {
+                  "type": "object",
                   "properties": {
-                    "token": {
-                      "description": "Авторизационный токен",
-                      "type": "string",
-                      "example": "jasdf807gb123uy40bviubva08sdyv123"
+                    "success": {
+                      "description": "Флаг успешности",
+                      "type": "boolean"
                     },
-                    "expired": {
-                      "description": "Время жизни токена в секундах",
-                      "type": "integer",
-                      "example": 2592000
+                    "response": {
+                      "description": "Данные",
+                      "properties": {
+                        "token": {
+                          "description": "Авторизационный токен",
+                          "type": "string",
+                          "example": "jasdf807gb123uy40bviubva08sdyv123"
+                        },
+                        "expired": {
+                          "description": "Время жизни токена в секундах",
+                          "type": "integer",
+                          "example": 2592000
+                        }
+                      },
+                      "type": "object"
                     }
-                  },
-                  "type": "object"
+                  }
+                },
+                {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Error"
+                    },
+                    {
+                      "properties": {
+                        "recaptcha_pass_token": {
+                          "description": "Токен для пропуска капчи",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
                 }
-              },
-              "type": "object"
+              ]
             }
           }
         }
